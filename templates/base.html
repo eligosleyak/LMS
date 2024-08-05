@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ez Online Pvt. Ltd.</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      padding: 48px 0 0;
+      box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+      background-color: #f8f9fa;
+    }
+    .sidebar-sticky {
+      position: relative;
+      top: 0;
+      height: calc(100vh - 48px);
+      padding-top: .5rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .nav-link {
+      color: #333;
+    }
+    .main-content {
+      margin-top: 56px;
+    }
+    .navbar-brand {
+      font-family: 'Lobster', cursive;
+      font-size: 1.5rem;
+    }
+    .navbar-custom {
+      background-color: #343a40;
+    }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .nav-link:hover {
+      color: #ffffff;
+    }
+    .navbar-text {
+      font-family: 'Lobster', cursive;
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+    <a class="navbar-brand" href="#">Ez Online</a>
+    <div class="collapse navbar-collapse">
+      <span class="navbar-text ml-auto">Logistic Management System</span>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-2 d-none d-md-block sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            {% if request.user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'dashboard' %}">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'active-delivery' %}">
+                <i class="fas fa-box"></i>
+                Active Deliveries
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'delivery-history' %}">
+                <i class="fas fa-history"></i>
+                Delivery History
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'delivery-queue' %}">
+                <i class="fas fa-list"></i>
+                Delivery Queue
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register-rider' %}">
+                <i class="fas fa-user-plus"></i>
+                Register Rider
+              </a>
+            </li>
+            {% elif request.user.is_rider %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'rider-queue' %}">
+                <i class="fas fa-biking"></i>
+                Rider Queue
+              </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'edit-profile' %}">
+                <i class="fas fa-user"></i>
+                {{ request.user.username }}
+              </a>
+            </li>
+          </ul>
+          <a href="{% url 'logout' %}" class="btn btn-warning btn-sm mt-3">Logout</a>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4 main-content">
+        {% block content %}
+        {% endblock content %}
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

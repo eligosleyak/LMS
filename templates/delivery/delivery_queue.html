@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Queue</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+<div class="container">
+  <h2>Delivery Queue</h2>       
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Package Name</th>
+        <th>Recipient Name</th>
+        <th>Recipient Phone</th>
+        <th>Recipient Address</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for o in obj %}
+        {% if not o.is_delivered %}
+        <tr>
+            <td>{{o.package_name}}</td>
+            <td>{{o.recipient_name}}</td>
+            <td>{{o.recipient_phone}}</td>
+            <td>{{o.recipient_address}}</td>
+            {% if o.has_rider %}
+                <td><span class="badge bg-success">Assigned</span></td>
+            {% else %}
+                <td><span class="badge bg-warning">Pending</span></td>
+            {% endif %}
+            <td>
+                <a href="{% url 'assign-delivery' o.pk %}" class="btn btn-outline-primary btn-sm">
+                    {% if o.has_rider %}
+                        Change Rider
+                    {% else %}
+                        Assign Rider
+                    {% endif %}
+                </a>
+                <a href="{% url 'delete-delivery' o.pk %}" class="btn btn-outline-danger btn-sm">Cancel</a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+{% endblock content %}

@@ -1,0 +1,95 @@
+<div class="pt-3 pb-2 mb-3 border-bottom">
+          <h2>Dashboard</h2>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <p class="card-text">100</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Sales</h5>
+                <p class="card-text">$10,000</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+<div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Password</label>
+              <input type="password" class="form-control" id="inputPassword4">
+            </div>
+            <div class="col-12">
+              <label for="inputAddress" class="form-label">Address</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            </div>
+            <div class="col-12">
+              <label for="inputAddress2" class="form-label">Address 2</label>
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            </div>
+            <div class="col-md-6">
+              <label for="inputCity" class="form-label">City</label>
+              <input type="text" class="form-control" id="inputCity">
+            </div>
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">State</label>
+              <select id="inputState" class="form-select">
+                <option selected>Choose...</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label for="inputZip" class="form-label">Zip</label>
+              <input type="text" class="form-control" id="inputZip">
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                  Check me out
+                </label>
+              </div>
+            </div>
+
+
+
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <form class="row g-3" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">Package Name</label>
+              {% render_field form.package_name class="form-control" %}
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Reciepient Name</label>
+                {% render_field form.recipient_name class="form-control" %}
+              </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Reciepient Phone</label>
+                {% render_field form.recipient_phone class="form-control" %}
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Reciepient Address</label>
+                {% render_field form.recipient_address class="form-control" %}
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+    </div>
+  </div>
+
+{% endblock content %}

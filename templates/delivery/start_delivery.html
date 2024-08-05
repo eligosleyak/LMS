@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <form class="row g-3" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">Package Name</label>
+              {% render_field form.package_name class="form-control" %}
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Recipient Name</label>
+                {% render_field form.recipient_name class="form-control" %}
+              </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Recipient Phone</label>
+                {% render_field form.recipient_phone class="form-control" %}
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Recipient Address</label>
+                {% render_field form.recipient_address class="form-control" %}
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+    </div>
+  </div>
+
+{% endblock content %}
